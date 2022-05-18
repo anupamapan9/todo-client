@@ -1,16 +1,36 @@
 import React from 'react';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import auth from '../../firebase.init';
 
 const Login = () => {
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+    // using email and password login 
     const handelLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(email, password)
+        signInWithEmailAndPassword(email, password);
+        if (!error) {
+            toast.success('Logged In')
+        }
     }
+    // google login 
     const handelGoogleLogin = () => {
-
+        signInWithGoogle()
+        if (!gError) {
+            toast.success('Logged In')
+        }
     }
+
     return (
         <div className="hero min-h-screen bg-base-100">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -49,7 +69,7 @@ const Login = () => {
                         <div class="flex flex-col w-full border-opacity-50">
 
                             <div class="divider">OR</div>
-                            <button className='w-full btn btn-primary my-2'>Continue With Google</button>
+                            <button className='w-full btn btn-primary my-2' onClick={handelGoogleLogin}>Continue With Google</button>
                         </div>
 
 
