@@ -64,7 +64,7 @@ const ToDo = () => {
                 </div>
             </div>
 
-            <ToDoTable tasks={tasks} />
+            <ToDoTable tasks={tasks} refetch={refetch} />
         </div>
     );
 };

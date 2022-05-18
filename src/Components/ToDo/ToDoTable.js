@@ -3,7 +3,7 @@ import TableRow from './TableRow';
 
 
 
-const ToDoTable = ({ tasks }) => {
+const ToDoTable = ({ tasks, refetch }) => {
 
     //   const [ta]
 
@@ -26,7 +26,7 @@ const ToDoTable = ({ tasks }) => {
                     <tbody>
                         {/* <!-- row 1 --> */}
                         {
-                            tasks.map((task, index) => <TableRow index={index} task={task} key={task._id}></TableRow>)
+                            tasks.map((task, index) => <TableRow index={index} refetch={refetch} task={task} key={task._id}></TableRow>)
                         }
                     </tbody>
                 </table>

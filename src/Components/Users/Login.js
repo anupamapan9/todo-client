@@ -66,9 +66,9 @@ const Login = () => {
                                 <input type="submit" value='Sign Up' className="btn btn-primary" />
                             </div>
                         </form>
-                        <div class="flex flex-col w-full border-opacity-50">
+                        <div className="flex flex-col w-full border-opacity-50">
 
-                            <div class="divider">OR</div>
+                            <div className="divider">OR</div>
                             <button className='w-full btn btn-primary my-2' onClick={handelGoogleLogin}>Continue With Google</button>
                         </div>
 
