@@ -1,11 +1,11 @@
 import React from 'react';
+import ToDoTable from './ToDoTable';
 
 const ToDo = () => {
     const addTaskToDb = event => {
         event.preventDefault()
         const taskName = event.target.taskName.value;
         const taskDescription = event.target.taskDescription.value;
-
     }
     return (
         <div>
@@ -23,6 +23,8 @@ const ToDo = () => {
                     </form>
                 </div>
             </div>
+
+            <ToDoTable />
         </div>
     );
 };
