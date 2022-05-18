@@ -3,13 +3,25 @@ import ToDoTable from './ToDoTable';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import toast from 'react-hot-toast';
 import auth from '../../firebase.init'
+import { useQuery } from 'react-query';
 const ToDo = () => {
     const [user, loading, error] = useAuthState(auth)
+    const email = user?.email;
+
+    const { data: tasks, isLoading, refetch } = useQuery('tasks', () => fetch(` http://localhost:5000/task/${email}`)
+        .then(res => res.json()))
+    if (isLoading) {
+        return <h1>Loading</h1>
+    }
+
+
+
+
     const addTaskToDb = e => {
         e.preventDefault();
         const taskName = e.target.taskName.value;
         const taskDescription = e.target.taskDescription.value;
-        const email = user?.email;
+
         const task = {
             taskName,
             taskDescription,
@@ -26,10 +38,12 @@ const ToDo = () => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Task Added in the table')
+                    refetch()
                 }
             })
         e.target.reset()
     }
+
 
 
 
@@ -50,7 +64,7 @@ const ToDo = () => {
                 </div>
             </div>
 
-            <ToDoTable />
+            <ToDoTable tasks={tasks} />
         </div>
     );
 };
