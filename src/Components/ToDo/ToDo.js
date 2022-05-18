@@ -1,12 +1,38 @@
 import React from 'react';
 import ToDoTable from './ToDoTable';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import toast from 'react-hot-toast';
+import auth from '../../firebase.init'
 const ToDo = () => {
-    const addTaskToDb = event => {
-        event.preventDefault()
-        const taskName = event.target.taskName.value;
-        const taskDescription = event.target.taskDescription.value;
+    const [user, loading, error] = useAuthState(auth)
+    const addTaskToDb = e => {
+        e.preventDefault();
+        const taskName = e.target.taskName.value;
+        const taskDescription = e.target.taskDescription.value;
+        const email = user?.email;
+        const task = {
+            taskName,
+            taskDescription,
+            email
+        }
+        fetch('http://localhost:5000/task', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(task),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Task Added in the table')
+                }
+            })
+        e.target.reset()
     }
+
+
+
     return (
         <div>
             <div className='flex justify-center'>
