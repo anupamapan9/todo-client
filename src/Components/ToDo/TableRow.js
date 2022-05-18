@@ -7,7 +7,7 @@ const TableRow = ({ index, task, refetch }) => {
     const handelDelete = id => {
         const isConfirm = window.confirm()
         if (isConfirm) {
-            fetch(`http://localhost:5000/task/${id}`,
+            fetch(`https://aqueous-garden-77804.herokuapp.com/task/${id}`,
                 {
                     method: "DELETE",
                 }).then(res => res.json())
@@ -22,7 +22,7 @@ const TableRow = ({ index, task, refetch }) => {
 
     const handelDone = id => {
 
-        fetch(`http://localhost:5000/task/${id}`, {
+        fetch(`https://aqueous-garden-77804.herokuapp.com/task/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

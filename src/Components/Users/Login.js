@@ -1,10 +1,15 @@
 import React from 'react';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import Loading from '../Common/Loading';
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     const [
         signInWithEmailAndPassword,
         user,
@@ -19,18 +24,22 @@ const Login = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         signInWithEmailAndPassword(email, password);
-        if (!error) {
-            toast.success('Logged In')
-        }
+
     }
     // google login 
     const handelGoogleLogin = () => {
         signInWithGoogle()
-        if (!gError) {
-            toast.success('Logged In')
-        }
     }
-
+    if (user || gUser) {
+        toast.success('Logged In')
+        navigate(from, { replace: true });
+    }
+    if (loading || gLoading) {
+        return <Loading />
+    }
+    if (error || gError) {
+        toast.error(error.message || gError.message)
+    }
     return (
         <div className="hero min-h-screen bg-base-100">
             <div className="hero-content flex-col lg:flex-row-reverse">

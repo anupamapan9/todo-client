@@ -6,6 +6,8 @@ import SignUp from './Components/Users/SignUp';
 import Login from './Components/Users/Login';
 import ToDo from './Components/ToDo/ToDo';
 import Navbar from './Components/Common/Navbar';
+import RequireAuth from './Components/Common/RequireAuth';
+import Forgotten from './Components/Users/Forgotten';
 
 function App() {
   return (
@@ -17,7 +19,11 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='/todo' element={<ToDo />} />
+          <Route path='/forgotten' element={<Forgotten />} />
+          <Route path='/todo' element={
+            <RequireAuth>
+              <ToDo />
+            </RequireAuth>} />
         </Routes>
       </Navbar>
 

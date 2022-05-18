@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
 const Navbar = ({ children }) => {
+    const [user, loading, error] = useAuthState(auth)
     const navBar = <>
         <li><NavLink to='/'>Home</NavLink ></li>
         <li><NavLink to='/todo'>Todo</NavLink ></li>
     </>
+    const logout = <button onClick={() => signOut(auth)} className='btn btn-accent'> LogOut</button>
     return (
         <div className="drawer drawer-end">
             <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -17,6 +21,8 @@ const Navbar = ({ children }) => {
                         <ul className="menu menu-horizontal gap-5">
                             {/* <!-- Navbar menu content here --> */}
                             {navBar}
+
+                            {user && logout}
                         </ul>
                     </div>
                     <div className="flex-none lg:hidden">
@@ -35,6 +41,7 @@ const Navbar = ({ children }) => {
                 <ul className="menu p-4 overflow-y-auto w-80 bg-base-100">
                     {/* <!-- Sidebar content here --> */}
                     {navBar}
+                    {user && logout}
                 </ul>
 
             </div>

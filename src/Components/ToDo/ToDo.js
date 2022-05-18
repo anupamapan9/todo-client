@@ -4,19 +4,16 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import toast from 'react-hot-toast';
 import auth from '../../firebase.init'
 import { useQuery } from 'react-query';
+import Loading from '../Common/Loading';
 const ToDo = () => {
     const [user, loading, error] = useAuthState(auth)
     const email = user?.email;
 
-    const { data: tasks, isLoading, refetch } = useQuery('tasks', () => fetch(` http://localhost:5000/task/${email}`)
+    const { data: tasks, isLoading, refetch } = useQuery('tasks', () => fetch(` https://aqueous-garden-77804.herokuapp.com/task/${email}`)
         .then(res => res.json()))
-    if (isLoading) {
-        return <h1>Loading</h1>
+    if (isLoading || loading) {
+        return <Loading />
     }
-
-
-
-
     const addTaskToDb = e => {
         e.preventDefault();
         const taskName = e.target.taskName.value;
@@ -27,7 +24,7 @@ const ToDo = () => {
             taskDescription,
             email
         }
-        fetch('http://localhost:5000/task', {
+        fetch('https://aqueous-garden-77804.herokuapp.com/task', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
