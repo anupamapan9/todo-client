@@ -35,7 +35,6 @@ const Navbar = ({ children }) => {
                 <ul class="menu p-4 overflow-y-auto w-80 bg-base-100">
                     {/* <!-- Sidebar content here --> */}
                     {navBar}
-
                 </ul>
 
             </div>

@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
+    const handelCreateUser = e => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+    }
+
     return (
         <div className="hero min-h-screen bg-base-100">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -16,7 +23,7 @@ const SignUp = () => {
                 </div>
                 <div className="card flex-shrink-0 md:w-1/2 max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <form >
+                        <form onSubmit={handelCreateUser}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
@@ -34,17 +41,11 @@ const SignUp = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name='password' placeholder="password" className="input input-bordered" />
-                                <label className="label">
-                                    <Link to='/forgotten' className='text-error'>Forgotten Password?</Link>
-                                </label>
                             </div>
                             <div className="form-control mt-6">
                                 <input type="submit" value='Sign Up' className="btn btn-primary" />
                             </div>
                         </form>
-
-
-
                     </div>
                 </div>
             </div>

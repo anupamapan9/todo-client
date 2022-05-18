@@ -2,6 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
+    const handelLogin = e => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(email, password)
+    }
+    const handelGoogleLogin = () => {
+
+    }
     return (
         <div className="hero min-h-screen bg-base-100">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -10,13 +19,14 @@ const Login = () => {
                     <p className="py-6">
                         Welcome back!!We missed you Please Login
                     </p>
+
                     <p>
                         New In? <Link to='/signup' className='font-bold text-success' >Sign Now!!</Link>
                     </p>
                 </div>
                 <div className="card flex-shrink-0 md:w-1/2 max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">
-                        <form >
+                        <form onSubmit={handelLogin}>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -36,7 +46,11 @@ const Login = () => {
                                 <input type="submit" value='Sign Up' className="btn btn-primary" />
                             </div>
                         </form>
+                        <div class="flex flex-col w-full border-opacity-50">
 
+                            <div class="divider">OR</div>
+                            <button className='w-full btn btn-primary my-2'>Continue With Google</button>
+                        </div>
 
 
                     </div>
